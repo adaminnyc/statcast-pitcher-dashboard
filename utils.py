@@ -1,3 +1,5 @@
+import datetime
+
 import pandas as pd
 import streamlit as st
 from pybaseball import playerid_lookup, statcast_pitcher
@@ -32,6 +34,21 @@ def fetch_game_data(player_id: int, game_date: str) -> pd.DataFrame:
         return df.reset_index(drop=True)
     except Exception as e:
         raise RuntimeError(f"StatCast data fetch failed: {e}") from e
+
+
+@st.cache_data
+def fetch_recent_game_dates(player_id: int, n: int = 10) -> list[datetime.date]:
+    """Return up to n most recent game dates for a pitcher, within the last 365 days."""
+    end = datetime.date.today()
+    start = end - datetime.timedelta(days=365)
+    try:
+        df = statcast_pitcher(str(start), str(end), player_id=player_id)
+    except Exception:
+        return []
+    if df is None or df.empty:
+        return []
+    dates = pd.to_datetime(df["game_date"]).dt.date.unique()
+    return sorted(set(dates), reverse=True)[:n]
 
 
 def pitch_color_map(pitch_types: list[str]) -> dict:
