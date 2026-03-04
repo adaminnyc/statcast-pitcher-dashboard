@@ -42,8 +42,9 @@ The app will open in your browser at `http://localhost:8501`.
 ## Usage
 
 1. Enter a pitcher's first and last name in the sidebar
-2. Select the date of the game you want to view
-3. Click **Load Data**
-4. If multiple players share the name, choose the correct one from the dropdown
+2. Click **Load Data**
+3. If multiple players share the name, choose the correct one from the dropdown
+4. The app automatically loads the pitcher's **last 10 game dates** as a dropdown — select one to view that game
+5. To look up an older game, choose **"Enter a specific date..."** at the bottom of the dropdown and pick any date back to 2008
 
-> **Tip:** Try Gerrit Cole on 2024-09-01 to test it out.
+> **Tip:** Try Gerrit Cole to see his recent starts auto-populated.
