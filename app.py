@@ -49,8 +49,13 @@ if st.session_state.pitcher_candidates is not None:
         def make_label(row):
             first = row.get("name_first", "")
             last = row.get("name_last", "")
-            first_year = int(row["mlb_played_first"]) if pd.notna(row.get("mlb_played_first")) else "?"
-            last_year = int(row["mlb_played_last"]) if pd.notna(row.get("mlb_played_last")) else "?"
+            def safe_year(val):
+                try:
+                    return int(val)
+                except (ValueError, TypeError):
+                    return "?"
+            first_year = safe_year(row.get("mlb_played_first"))
+            last_year = safe_year(row.get("mlb_played_last"))
             return f"{first} {last} ({first_year}–{last_year})"
 
         labels = candidates.apply(make_label, axis=1).tolist()
