@@ -2,6 +2,16 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Version Control
+
+After every change to the codebase, commit and push to GitHub so changes can be rolled back:
+
+```bash
+git add <changed files>
+git commit -m "short description of change"
+git push
+```
+
 ## Running the App
 
 ```bash
